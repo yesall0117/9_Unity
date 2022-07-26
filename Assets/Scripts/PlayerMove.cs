@@ -62,15 +62,18 @@ public class PlayerMove : MonoBehaviour
         float v = Input.GetAxis("Vertical");
 
         Vector3 dir=new Vector3(h, 0, v);
+
+        anim.SetFloat("MoveMotion", dir.magnitude);
+
+
         dir = dir.normalized;
 
         dir = Camera.main.transform.TransformDirection(dir);
 
-        anim.SetFloat("MoveMotion", dir.magnitude);
 
         
 
-        transform.position += dir * MoveSpeed * Time.deltaTime;
+        //transform.position += dir * MoveSpeed * Time.deltaTime;
 
 
 
@@ -79,7 +82,9 @@ public class PlayerMove : MonoBehaviour
            isJumping = false;
             YVelocity = 0;
         }
-        if (Input.GetButtonDown("Jump")&&!isJumping)
+
+
+        if (!isJumping && Input.GetButtonDown("Jump"))
         {
             YVelocity = jumpPower;
             isJumping=true;

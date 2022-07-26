@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         gState = GameState.Ready;
         gameText = gameLabel.GetComponent<Text>();
         gameText.text = "Ready...";
-        gameText.color = new Color32(225, 185, 0, 255);
+        gameText.color = new Color32(255, 185, 0, 255);
 
         StartCoroutine(ReadyToStart());
         player = GameObject.Find("Player").GetComponent<PlayerMove>();
