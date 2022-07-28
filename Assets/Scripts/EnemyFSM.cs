@@ -34,7 +34,7 @@ public class EnemyFSM : MonoBehaviour
     Vector3 originPos;
     public float moveDistance = 20f;
     public int hp = 15;
-    int maxHp = 30;
+    int maxHp = 15;
     public Slider hpSlider;
 
 
