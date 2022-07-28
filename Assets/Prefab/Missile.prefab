@@ -112,7 +112,7 @@ MonoBehaviour:
   speed: 30
   missileEffect: {fileID: 2639279721134480707, guid: 167f62d25187f1b43a2daa4a33bcbd2e, type: 3}
   attackPower: 10
-  explosionRadius: 5
+  explosionRadius: 15
 --- !u!54 &-3264130029880320150
 Rigidbody:
   m_ObjectHideFlags: 0
