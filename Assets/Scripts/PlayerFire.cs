@@ -22,11 +22,16 @@ public class PlayerFire : MonoBehaviour
     enum WeaponMode
     { 
        Normal,
-       Sniper
+       Sniper,
+       Bazooka
     }
     WeaponMode wMode;
 
     bool ZoomMode = false;
+
+
+
+    public GameObject bazookaFactory;
 
 
     // Start is called before the first frame update
@@ -48,7 +53,7 @@ public class PlayerFire : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1))
         {
             switch (wMode)
             { 
@@ -71,6 +76,15 @@ public class PlayerFire : MonoBehaviour
                         Camera.main.fieldOfView = 60f;
                         ZoomMode=false;
                     }
+                    break;
+                case WeaponMode.Bazooka:
+                    GameObject missile = Instantiate(bazookaFactory);
+                    missile.transform.position = firePosition.transform.position;
+                    Rigidbody rb2 = missile.GetComponent<Rigidbody>();
+
+                    rb2.AddForce(Camera.main.transform.forward * throwPower, ForceMode.Impulse);
+
+
                     break;
 
             }
@@ -119,6 +133,13 @@ public class PlayerFire : MonoBehaviour
             wMode = WeaponMode.Sniper;
 
             wModeText.text = "Sniper Mode";
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            wMode = WeaponMode.Bazooka;
+
+            wModeText.text = "Bazooka Mode";
+
         }
     }
 
