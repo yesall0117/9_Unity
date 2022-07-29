@@ -33,6 +33,11 @@ public class PlayerFire : MonoBehaviour
 
     public GameObject bazookaFactory;
 
+    private int currentMissile;
+    public int maxMissile = 5;
+
+    public Text BulletCount;
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +47,8 @@ public class PlayerFire : MonoBehaviour
         anim=GetComponentInChildren<Animator>();
 
         wMode = WeaponMode.Normal;
+
+        currentMissile = maxMissile;
 
     }
     
@@ -78,11 +85,24 @@ public class PlayerFire : MonoBehaviour
                     }
                     break;
                 case WeaponMode.Bazooka:
-                    GameObject missile = Instantiate(bazookaFactory);
-                    missile.transform.position = firePosition.transform.position;
-                    Rigidbody rb2 = missile.GetComponent<Rigidbody>();
 
-                    rb2.AddForce(Camera.main.transform.forward * throwPower, ForceMode.Impulse);
+                    if (currentMissile > 0)
+                    {
+                        currentMissile -= 1;
+
+                        GameObject missile = Instantiate(bazookaFactory);
+                        missile.transform.position = firePosition.transform.position;
+                        Rigidbody rb2 = missile.GetComponent<Rigidbody>();
+
+                        rb2.AddForce(Camera.main.transform.forward * throwPower, ForceMode.Impulse);
+
+                        BulletCount.text = "" + currentMissile;
+                    }
+                    else
+                    {
+                        Debug.Log("더이상 사용할 수 없습니다.");
+                    }
+                    
 
 
                     break;
@@ -127,18 +147,24 @@ public class PlayerFire : MonoBehaviour
             ZoomMode = false;
 
             wModeText.text = "Normal Mode";
+
+            BulletCount.text = "∞";
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             wMode = WeaponMode.Sniper;
 
             wModeText.text = "Sniper Mode";
+
+            BulletCount.text = "∞";
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             wMode = WeaponMode.Bazooka;
 
             wModeText.text = "Bazooka Mode";
+
+            BulletCount.text = "" + currentMissile;
 
         }
     }
